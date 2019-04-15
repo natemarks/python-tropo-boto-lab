@@ -57,6 +57,8 @@ def test_pos_list_bucket_ids_by_tags(s3_test_data):
 
 
 def test_get_file_path():
+    import os
+
     from tropo_boto_lab.utility import get_file_path
     res = get_file_path('common_vpc.yml', path='..')
-    assert res.endswith('/cloudformation/common_vpc.yml')
+    assert os.path.isfile(res)
