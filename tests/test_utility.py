@@ -54,3 +54,9 @@ def test_pos_list_bucket_ids_by_tags(s3_test_data):
     from tropo_boto_lab.utility import list_bucket_arns_by_tags
     res = list_bucket_arns_by_tags(s3_test_data['get_tag_set'], s3_test_data['type_filter'])
     assert len(res) == 1
+
+
+def test_get_file_path():
+    from tropo_boto_lab.utility import get_file_path
+    res = get_file_path('common_vpc.yml', path='..')
+    assert res.endswith('/cloudformation/common_vpc.yml')

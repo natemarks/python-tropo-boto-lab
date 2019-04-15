@@ -120,3 +120,21 @@ def list_bucket_arns_by_tags(tag_filter, type_filter):
         res.append(arn['ResourceARN'])
 
     return res
+
+
+def get_file_path(file_name, path=None):
+    """Fild path of file_name in search_dir subtree
+
+    Given a file name (file_name) walk the subtrees under search_dir and return the full path of the first found
+    instance of the file name.  If no search_dir is provided, use cwd
+
+    :param str file_name: name of a file
+
+    :param str path: absolute path to a directory to be searched. default to cwd
+
+    :rtype: str
+    """
+    import os
+    for root, dirs, files in os.walk(path):
+        if file_name in files:
+            return os.path.join(root, file_name)
