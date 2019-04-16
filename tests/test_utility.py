@@ -18,6 +18,20 @@ def s3_test_data():
     destroy_bucket_with_client(data['id'])
 
 
+@pytest.fixture(scope="module")
+def cfn_test_data():
+    data = {
+        # uses a value string
+        'put_tag_set': [{'Key': 'environment',
+                         'Value': 'MANAGEMENT_VPC'}],
+        # uses a list of values. note the different key: 'Values' vs. 'Value'
+        'get_tag_set': [{'Key': 'environment',
+                         'Values': ['MANAGEMENT_VPC']}],
+        'type_filter': 'cloudformation'
+    }
+    yield data
+
+
 def test_neg_bucket_name_exists():
     from tropo_boto_lab.utility import bucket_name_exists
     assert bucket_name_exists('some-non-existent-bucket') is False
@@ -62,3 +76,10 @@ def test_get_file_path():
     from tropo_boto_lab.utility import get_file_path
     res = get_file_path('common_vpc.yml', path='..')
     assert os.path.isfile(res)
+
+
+def test_pos_list_cfn_ids_by_tags(cfn_test_data):
+    from tropo_boto_lab.utility import list_cfn_by_tags
+    res = list_cfn_by_tags(s3_test_data['get_tag_set'], s3_test_data['type_filter'])
+    assert len(res) == 1
+

@@ -68,6 +68,8 @@ def simple_get_bucket_by_tags(tag_filter, type_filter):
 
     :param List[Dict[str, str or List[str]]] tag_filter: tag filter
 
+    Type filter options:
+    https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces
     """
     dev_session = boto3.Session(region_name=DEV_REGION, profile_name='personal')
     client = dev_session.client('resourcegroupstaggingapi')
@@ -112,6 +114,40 @@ def list_bucket_arns_by_tags(tag_filter, type_filter):
             ]
 
     :param List[Dict[str, str or List[str]]] tag_filter: tag filter
+    :param str type_filter: see options for string below
+
+
+    Type filter options:
+    https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces
+
+    :rtype: List[str]
+    """
+    res = []
+    response = simple_get_bucket_by_tags(tag_filter, type_filter)
+    for arn in response['ResourceTagMappingList']:
+        res.append(arn['ResourceARN'])
+
+    return res
+
+
+def list_cfn_by_tags(tag_filter, type_filter="cloudformation"):
+
+    """The summary line for a method docstring should fit on one line.
+
+    Example tag filter
+                TagFilters=[
+                {
+                    'Key': 'shape',
+                    'Values': ['round']
+                }
+            ]
+
+    :param List[Dict[str, str or List[str]]] tag_filter: tag filter
+    :param str type_filter: see options for string below
+
+    Type filter options:
+    https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces
+
     :rtype: List[str]
     """
     res = []
