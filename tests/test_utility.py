@@ -80,6 +80,6 @@ def test_get_file_path():
 
 def test_pos_list_cfn_ids_by_tags(cfn_test_data):
     from tropo_boto_lab.utility import list_cfn_by_tags
-    res = list_cfn_by_tags(s3_test_data['get_tag_set'], s3_test_data['type_filter'])
+    res = list_cfn_by_tags(cfn_test_data['get_tag_set'], cfn_test_data['type_filter'])
     assert len(res) == 1
 
