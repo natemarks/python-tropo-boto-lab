@@ -174,3 +174,39 @@ def get_file_path(file_name, path=None):
     for root, dirs, files in os.walk(path):
         if file_name in files:
             return os.path.join(root, file_name)
+
+
+def string_from_file(file_name):
+    """Read contents of a resource file into a string
+
+    If the class has public attributes, they may be documented here
+    in an ``Attributes`` section and follow the same formatting as a
+    function's ``Args`` section. Good for planning using just docstrings.
+
+    :param str file_name: name of a resource file kin the project tree
+
+    :rtype: str
+    """
+    file_path = get_file_path(file_name)
+    with open(file_path, "r") as myfile:
+        data = myfile.read()
+    return data
+
+
+def create_stack(body, tags, parameters, disable_rollback=False, capabilities=None):
+    """Create a stack from a given body string
+
+    If the class has public attributes, they may be documented here
+    in an ``Attributes`` section and follow the same formatting as a
+    function's ``Args`` section. Good for planning using just docstrings.
+    
+    :param int a: some short description
+    
+    :param b: some short description
+    :type b: int
+    
+    :param c: just a description with no type
+    
+    :rtype: dict[str, str]
+    """
+    pass

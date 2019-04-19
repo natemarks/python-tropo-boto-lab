@@ -20,6 +20,11 @@ def s3_test_data():
 
 @pytest.fixture(scope="module")
 def cfn_test_data():
+    """
+    return the stack body string from the file
+    :return:
+    """
+    from tropo_boto_lab.utility import string_from_file
     data = {
         # uses a value string
         'put_tag_set': [{'Key': 'environment',
@@ -27,7 +32,8 @@ def cfn_test_data():
         # uses a list of values. note the different key: 'Values' vs. 'Value'
         'get_tag_set': [{'Key': 'environment',
                          'Values': ['MANAGEMENT_VPC']}],
-        'type_filter': 'cloudformation'
+        'type_filter': 'cloudformation',
+        'body': string_from_file('common_vpc.yml')
     }
     yield data
 
