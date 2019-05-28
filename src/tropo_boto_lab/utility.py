@@ -41,7 +41,7 @@ def destroy_bucket_with_client(bucket_name):
 
 
 def bucket_name_exists(bucket_name):
-    """Destroy bucket by bucket name
+    """Find bucket by name
 
     :param str bucket_name: name of bucket to delete
 
